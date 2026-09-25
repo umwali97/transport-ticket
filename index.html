@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title data-i18n="title">Tikigo | Book. Pay. Travel.</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Map -->
+    <link rel="stylesheet"
+          href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<header class="topbar">
+
+    <div class="logo">
+        <div class="logo-circle">T</div>
+        <div>
+            <strong>Tikigo</strong>
+            <small data-i18n="subtitle">Book • Pay • Travel</small>
+        </div>
+    </div>
+
+    <div class="top-controls">
+
+        <select id="languageSelect">
+            <option value="en" data-i18n="language-en">English</option>
+            <option value="rw" data-i18n="language-rw">Kinyarwanda</option>
+            <option value="fr" data-i18n="language-fr">Français</option>
+        </select>
+
+        <button class="settings-btn" onclick="openSettings()">
+            ⚙ Settings
+        </button>
+
+    </div>
+
+</header>
+
+
+<!-- PAGE NAVIGATION -->
+
+<nav class="page-navigation">
+
+    <button class="page-button active" onclick="showPage(1)">
+        <span>1</span>
+        <span data-i18n="page1-title">Start</span>
+    </button>
+
+    <button class="page-button" onclick="showPage(2)">
+        <span>2</span>
+        <span data-i18n="page2-title">  </span>Buses</span>
+    </button>
+
+    <button class="page-button" onclick="showPage(3)">
+        <span>3</span>
+        <span data-i18n="page3-title"></span>Payment</span>
+    </button>
+
+    <button class="page-button" onclick="showPage(4)">
+        <span>4</span>
+        <span data-i18n="page4-title"></span>Ticket</span>
+    </button>
+
+</nav>
+
+
+<main>
+
+
+<!-- ================= PAGE 1 ================= -->
+
+<section class="page active" id="page1">
+
+    <div class="hero">
+
+        <div class="hero-text">
+
+            <p class="eyebrow">RWANDA'S SMART BUS BOOKING</p>
+
+            <h1>
+                Book your journey.
+                <span>Pay. Travel.</span>
+            </h1>
+
+            <p class="description">
+                Choose your location, destination and bus.
+                Tikigo makes travelling around Rwanda simple.
+            </p>
+
+
+            <!-- BOOKING -->
+
+            <div class="booking-card">
+
+                <h2>Where are you going?</h2>
+
+                <div class="form-grid">
+
+                    <label>
+                        From
+
+                        <select id="fromDistrict">
+
+                            <option value="Nyarugenge">
+                                Nyarugenge
+                            </option>
+
+                            <option value="Gasabo">
+                                Gasabo
+                            </option>
+
+                            <option value="Kicukiro">
+                                Kicukiro
+                            </option>
+
+                            <option value="Huye">
+                                Huye
+                            </option>
+
+                            <option value="Musanze">
+                                Musanze
+                            </option>
+
+                            <option value="Rubavu">
+                                Rubavu
+                            </option>
+
+                        </select>
+
+                    </label>
+
+
+                    <label>
+                        Destination
+
+                        <select id="toDistrict">
+
+                            <option value="Musanze">
+                                Musanze
+                            </option>
+
+                            <option value="Huye">
+                                Huye
+                            </option>
+
+                            <option value="Rubavu">
+                                Rubavu
+                            </option>
+
+                            <option value="Muhanga">
+                                Muhanga
+                            </option>
+
+                            <option value="Nyagatare">
+                                Nyagatare
+                            </option>
+
+                            <option value="Nyarugenge">
+                                Nyarugenge
+                            </option>
+
+                        </select>
+
+                    </label>
+
+                </div>
+
+
+                <div class="form-grid">
+
+                    <label>
+                        Travel date
+
+                        <input
+                            type="date"
+                            id="travelDate">
+                    </label>
+
+
+                    <label>
+                        Passengers
+
+                        <select id="passengers">
+
+                            <option>1 passenger</option>
+                            <option>2 passengers</option>
+                            <option>3 passengers</option>
+                            <option>4 passengers</option>
+
+                        </select>
+
+                    </label>
+
+                </div>
+
+
+                <button
+                    class="main-button"
+                    onclick="findBuses()">
+
+                    Find available buses
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- RWANDA IMAGE -->
+
+        <div class="hero-image">
+
+            <img
+                src="https://commons.wikimedia.org/wiki/Special:FilePath/Buses_at_Nyabugogo.jpg"
+                alt="Buses in Rwanda">
+
+            <div class="image-caption">
+
+                <strong>Nyabugogo, Kigali</strong>
+
+                <span>
+                    Rwanda transport
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- PROFILE -->
+
+    <div class="section-title">
+
+        <div>
+
+            <p class="eyebrow">
+                SIGN IN
+            </p>
+
+            <h2>
+                Create your Tikigo profile
+            </h2>
+
+        </div>
+
+        <p>
+            Your details are saved on this browser.
+        </p>
+
+    </div>
+
+
+    <div class="profile-card">
+
+        <div class="profile-grid">
+
+            <label>
+                Full name
+
+                <input
+                    type="text"
+                    id="profileName"
+                    placeholder="Your full name">
+            </label>
+
+
+            <label>
+                Email
+
+                <input
+                    type="email"
+                    id="profileEmail"
+                    placeholder="you@example.com">
+            </label>
+
+
+            <label>
+                Mobile number
+
+                <input
+                    type="tel"
+                    id="profilePhone"
+                    placeholder="+250 7xx xxx xxx">
+            </label>
+
+
+            <label>
+                Location
+
+                <input
+                    type="text"
+                    id="profileLocation"
+                    placeholder="Kigali, Rwanda">
+            </label>
+
+        </div>
+
+
+        <div class="profile-bottom">
+
+            <div>
+
+                <strong>Theme</strong>
+
+                <div class="theme-buttons">
+
+                    <button
+                        class="theme-choice selected"
+                        onclick="changeTheme('system')">
+
+                        System default
+
+                    </button>
+
+                    <button
+                        class="theme-choice"
+                        onclick="changeTheme('light')">
+
+                        Light
+
+                    </button>
+
+                    <button
+                        class="theme-choice"
+                        onclick="changeTheme('dark')">
+
+                        Dark
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="secondary-button"
+                onclick="saveProfile()">
+
+                Save profile
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- ROAD IMAGE -->
+
+    <div class="rwanda-banner">
+
+        <div>
+
+            <p class="eyebrow">
+                RWANDA ON THE ROAD
+            </p>
+
+            <h2>
+                Travel from Kigali to every corner of Rwanda.
+            </h2>
+
+            <p>
+                Explore routes through Kigali City,
+                Eastern, Northern, Southern and Western Province.
+            </p>
+
+        </div>
+
+        <img
+            src="https://commons.wikimedia.org/wiki/Special:FilePath/2013-06-05_05-58-18_Rwanda_Kigali_-_Nyabugogo.JPG"
+            alt="Road in Kigali">
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= PAGE 2 ================= -->
+
+<section class="page" id="page2">
+
+    <div class="page-heading">
+
+        <div>
+
+            <p class="eyebrow">
+                PAGE 2 · AVAILABLE BUSES
+            </p>
+
+            <h1>
+                Choose your bus
+            </h1>
+
+            <p>
+                Select the bus that works best for your journey.
+            </p>
+
+        </div>
+
+        <div
+            class="route"
+            id="routeSummary">
+
+            Nyarugenge → Musanze
+
+        </div>
+
+    </div>
+
+
+    <div class="bus-layout">
+
+
+        <!-- BUS LIST -->
+
+        <div id="busList">
+
+        </div>
+
+
+        <!-- MAP -->
+
+        <div class="map-card">
+
+            <div class="map-header">
+
+                <div>
+
+                    <p class="eyebrow">
+                        RWANDA MAP
+                    </p>
+
+                    <h2>
+                        Bus station location
+                    </h2>
+
+                </div>
+
+                <button
+                    class="small-button"
+                    onclick="zoomStation()">
+
+                    Show station
+
+                </button>
+
+            </div>
+
+
+            <div id="map"></div>
+
+
+            <div class="map-legend">
+
+                <span>
+                    <i class="red-dot"></i>
+                    Bus station
+                </span>
+
+                <span>
+                    <i class="blue-dot"></i>
+                    Your location
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- PROVINCES -->
+
+    <div class="province-card">
+
+        <p class="eyebrow">
+            RWANDA ADMINISTRATIVE AREAS
+        </p>
+
+        <h2>
+            Provinces & districts
+        </h2>
+
+
+        <div class="province-grid">
+
+            <article>
+                <h3>City of Kigali</h3>
+                <p>
+                    Gasabo · Kicukiro · Nyarugenge
+                </p>
+            </article>
+
+
+            <article>
+                <h3>Eastern Province</h3>
+                <p>
+                    Bugesera · Gatsibo · Kayonza ·
+                    Kirehe · Ngoma · Nyagatare · Rwamagana
+                </p>
+            </article>
+
+
+            <article>
+                <h3>Northern Province</h3>
+                <p>
+                    Burera · Gakenke · Gicumbi ·
+                    Musanze · Rulindo
+                </p>
+            </article>
+
+
+            <article>
+                <h3>Southern Province</h3>
+                <p>
+                    Gisagara · Huye · Kamonyi ·
+                    Muhanga · Nyamagabe · Nyanza ·
+                    Nyaruguru · Ruhango
+                </p>
+            </article>
+
+
+            <article>
+                <h3>Western Province</h3>
+                <p>
+                    Karongi · Ngororero · Nyabihu ·
+                    Nyamasheke · Rubavu · Rusizi · Rutsiro
+                </p>
+            </article>
+
+        </div>
+
+    </div>
+
+
+    <div class="navigation-buttons">
+
+        <button
+            class="secondary-button"
+            onclick="showPage(1)">
+
+            Page 1 · Booking
+
+        </button>
+
+
+        <button
+            class="main-button"
+            onclick="goToPayment()">
+
+            Continue to payment
+
+        </button>
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= PAGE 3 ================= -->
+
+<section class="page" id="page3">
+
+    <div class="page-heading">
+
+        <div>
+
+            <p class="eyebrow">
+                PAGE 3 · PAYMENT
+            </p>
+
+            <h1>
+                Confirm your journey
+            </h1>
+
+            <p>
+                Enter your information before making the payment.
+            </p>
+
+        </div>
+
+        <div class="momo-badge">
+            MoMo
+        </div>
+
+    </div>
+
+
+    <div class="payment-layout">
+
+
+        <!-- PAYMENT FORM -->
+
+        <form
+            class="payment-card"
+            onsubmit="processPayment(event)">
+
+            <h2>
+                Passenger details
+            </h2>
+
+
+            <div class="form-grid">
+
+                <label>
+                    Full name
+
+                    <input
+                        type="text"
+                        id="payName"
+                        required>
+                </label>
+
+
+                <label>
+                    Mobile number
+
+                    <input
+                        type="tel"
+                        id="payPhone"
+                        placeholder="+250 7xx xxx xxx"
+                        required>
+                </label>
+
+            </div>
+
+
+            <hr>
+
+
+            <h2>
+                Journey details
+            </h2>
+
+
+            <div class="form-grid">
+
+                <label>
+                    Bus selected
+
+                    <input
+                        id="payBus"
+                        readonly>
+                </label>
+
+
+                <label>
+                    Bus station
+
+                    <input
+                        id="payStation"
+                        value="Nyabugogo Bus Park"
+                        readonly>
+                </label>
+
+            </div>
+
+
+            <div class="form-grid">
+
+                <label>
+                    Departure
+
+                    <input
+                        id="payFrom"
+                        readonly>
+                </label>
+
+
+                <label>
+                    Destination
+
+                    <input
+                        id="payTo"
+                        readonly>
+                </label>
+
+            </div>
+
+
+            <hr>
+
+
+            <div class="momo-section">
+
+                <div class="momo-heading">
+
+                    <div class="momo-icon">
+                        M
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            MoMo payment
+                        </h2>
+
+                        <p>
+                            Enter your PIN to confirm
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <label>
+                    MoMo PIN
+
+                    <input
+                        type="password"
+                        id="momoPin"
+                        maxlength="5"
+                        inputmode="numeric"
+                        placeholder="•••••"
+                        required>
+                </label>
+
+
+                <p class="security-note">
+                    This is a demonstration payment screen.
+                    No real money will be transferred.
+                </p>
+
+            </div>
+
+
+            <button
+                class="main-button full"
+                type="submit">
+
+                Pay & confirm ticket
+
+            </button>
+
+        </form>
+
+
+        <!-- BOOKING SUMMARY -->
+
+        <div class="booking-summary">
+
+            <img
+                src="https://commons.wikimedia.org/wiki/Special:FilePath/Public_Transport_Bus_Nyabugogo.jpg"
+                alt="Rwanda bus">
+
+            <div class="summary-content">
+
+                <p class="eyebrow">
+                    YOUR BOOKING
+                </p>
+
+                <h2 id="previewBus">
+                    Select a bus
+                </h2>
+
+
+                <div class="summary-row">
+
+                    <span>Route</span>
+
+                    <strong id="previewRoute">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-row">
+
+                    <span>Boarding</span>
+
+                    <strong id="previewTime">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <div class="summary-row">
+
+                    <span>Fare</span>
+
+                    <strong id="previewFare">
+                        —
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="navigation-buttons">
+
+        <button
+            class="secondary-button"
+            onclick="showPage(2)">
+
+            Page 2 · Buses
+
+        </button>
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= PAGE 4 ================= -->
+
+<section class="page" id="page4">
+
+    <div class="success">
+
+        <div class="success-icon">
+            ✓
+        </div>
+
+        <p class="eyebrow">
+            PAYMENT APPROVED
+        </p>
+
+        <h1>
+            Welcome to Tikigo
+        </h1>
+
+        <p class="success-text">
+            Your payment to Tikigo services has been done
+            and approved.
+        </p>
+
+
+        <!-- TICKET -->
+
+        <div class="ticket">
+
+            <div class="ticket-header">
+
+                <div>
+
+                    <small>
+                        Passenger
+                    </small>
+
+                    <strong id="ticketName">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <div
+                    class="ticket-number"
+                    id="ticketCode">
+
+                    TKG-000000
+
+                </div>
+
+            </div>
+
+
+            <div class="ticket-details">
+
+                <div>
+                    <small>Bus</small>
+                    <strong id="ticketBus">—</strong>
+                </div>
+
+                <div>
+                    <small>Route</small>
+                    <strong id="ticketRoute">—</strong>
+                </div>
+
+                <div>
+                    <small>Station</small>
+                    <strong id="ticketStation">
+                        Nyabugogo Bus Park
+                    </strong>
+                </div>
+
+                <div>
+                    <small>Boarding time</small>
+                    <strong id="ticketTime">—</strong>
+                </div>
+
+                <div>
+                    <small>Mobile</small>
+                    <strong id="ticketPhone">—</strong>
+                </div>
+
+                <div>
+                    <small>Status</small>
+                    <strong class="approved">
+                        Approved ✓
+                    </strong>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- MESSAGE -->
+
+        <div class="confirmation">
+
+            <div class="message-icon">
+                💬
+            </div>
+
+            <div>
+
+                <strong>
+                    Confirmation message
+                </strong>
+
+                <p id="confirmationText">
+                    Welcome to Tikigo.
+                    Your payment has been approved.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="success-buttons">
+
+            <button
+                class="main-button"
+                onclick="showPage(1)">
+
+                Book another trip
+
+            </button>
+
+
+            <button
+                class="secondary-button"
+                onclick="window.print()">
+
+                Print ticket
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- FINAL IMAGE -->
+
+    <div class="final-image">
+
+        <img
+            src="https://commons.wikimedia.org/wiki/Special:FilePath/Nyabugogo_Bus_Park.jpg"
+            alt="Nyabugogo Bus Park">
+
+        <div>
+            <strong>
+                Your journey starts here.
+            </strong>
+
+            <span>
+                Tikigo · Rwanda
+            </span>
+        </div>
+
+    </div>
+
+
+    <!-- CONTACT -->
+
+    <div class="contact">
+
+        <div class="contact-card">
+
+            <div class="contact-icon">
+                ☎
+            </div>
+
+            <div>
+
+                <small>
+                    For more info, message
+                </small>
+
+                <strong>
+                    +2507984532
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="contact-card">
+
+            <div class="contact-icon">
+                ✉
+            </div>
+
+            <div>
+
+                <small>
+                    Email Tikigo
+                </small>
+
+                <strong>
+                    graacee028@gmail.com
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<!-- SETTINGS POPUP -->
+
+<div
+    class="modal hidden"
+    id="settingsModal">
+
+    <div
+        class="modal-background"
+        onclick="closeSettings()">
+    </div>
+
+    <div class="modal-box">
+
+        <button
+            class="close"
+            onclick="closeSettings()">
+
+            ×
+
+        </button>
+
+        <p class="eyebrow">
+            TIKIGO SETTINGS
+        </p>
+
+        <h2>
+            Your profile
+        </h2>
+
+        <div
+            id="settingsSummary"
+            class="settings-summary">
+
+            No profile saved yet.
+
+        </div>
+
+        <button
+            class="main-button full"
+            onclick="closeSettings()">
+
+            Done
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<div
+    class="toast"
+    id="toast">
+</div>
+
+
+<footer>
+
+    <div class="footer-logo">
+        <div class="logo-circle">T</div>
+        <strong>Tikigo</strong>
+    </div>
+
+    <p>
+        Book • Pay • Travel · Rwanda
+    </p>
+
+    <small>
+        Map data © OpenStreetMap contributors.
+    </small>
+
+</footer>
+
+
+<script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+</script>
+
+<script src="script.js"></script>
+
+</body>
+</html>
